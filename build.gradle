@@ -1,14 +1,28 @@
 group 'com.movierental'
 version '1.0-SNAPSHOT'
-
 apply plugin: 'java'
+apply plugin: 'pmd'
 
 sourceCompatibility = 1.8
+
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testImplementation group: 'junit', name: 'junit', version: '4.11'
 }
+
+tasks.withType(Pmd){
+    reports{
+        xml.enabled=true
+        html.enabled=true
+    }
+}
+pmd {
+    toolVersion = "6.21.0"
+    ruleSetFiles = files("$buildDir/rulesets/customRule.xml")
+    ruleSets = []
+}
+
